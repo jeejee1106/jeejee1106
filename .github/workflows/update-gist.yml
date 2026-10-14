@@ -9,8 +9,21 @@ jobs:
   update-early-box:
     runs-on: ubuntu-latest
     steps:
-      - uses: maxam2037/productive-box@main
+      - name: Checkout productive-box
+        uses: actions/checkout@v4
         with:
+          repository: maxam2037/productive-box
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Run productive-box
+        run: |
+          npm install
+          node index.js
+        env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
           GIST_ID: ${{ secrets.EARLY_GIST_ID }}
           TIMEZONE: "Asia/Seoul"
@@ -18,7 +31,20 @@ jobs:
   update-stats-box:
     runs-on: ubuntu-latest
     steps:
-      - uses: bokub/github-stats-box@master
+      - name: Checkout github-stats-box
+        uses: actions/checkout@v4
         with:
+          repository: bokub/github-stats-box
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Run github-stats-box
+        run: |
+          npm install
+          node index.js
+        env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
           GIST_ID: ${{ secrets.STATS_GIST_ID }}
