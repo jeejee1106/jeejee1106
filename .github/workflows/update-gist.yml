@@ -1,0 +1,24 @@
+name: Update Gist Stats
+
+on:
+  schedule:
+    - cron: "0 0 * * *" # 매일 1회 자동 실행
+  workflow_dispatch: # 수동 실행 버튼 활성화
+
+jobs:
+  update-early-box:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: maxam2037/productive-box@master
+        with:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          GIST_ID: ${{ secrets.EARLY_GIST_ID }}
+          TIMEZONE: "Asia/Seoul"
+
+  update-stats-box:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: bokub/github-stats-box@latest
+        with:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          GIST_ID: ${{ secrets.STATS_GIST_ID }}
