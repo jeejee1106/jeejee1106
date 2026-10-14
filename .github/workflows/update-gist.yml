@@ -28,6 +28,15 @@ jobs:
           GIST_ID: ${{ secrets.EARLY_GIST_ID }}
           TIMEZONE: "Asia/Seoul"
 
+      - name: Rename Gist filename
+        run: |
+          curl -L \
+            -X PATCH \
+            -H "Accept: application/vnd.github+json" \
+            -H "Authorization: Bearer ${{ secrets.GH_TOKEN }}" \
+            https://api.github.com/gists/${{ secrets.EARLY_GIST_ID }} \
+            -d '{"files":{"productive-box":{"filename":"I'\''m a Sun-Powered Developer ☀️"}}}'
+
   update-stats-box:
     runs-on: ubuntu-latest
     steps:
@@ -51,4 +60,4 @@ jobs:
           ALL_COMMITS: "true"
           K_FORMAT: "true"
           SHOW_TITLE: "true"
-          KGS_CUSTOM_NAME: ""
+          KGS_CUSTOM_NAME: "minjee's GitHub Stats"
